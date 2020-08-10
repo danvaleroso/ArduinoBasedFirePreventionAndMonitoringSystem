@@ -1,0 +1,10 @@
+Operation
+1. Open the program by switching on the power source.
+2. The device will set all sensors while the system is initializing.
+3. The device will send a message containing “System Ready” to the owner.
+4. The device will display real time readings of temperature and gas level.
+5. The owner can send SMS to the device to get system status.
+6. When the temperature reaches 70⁰C and the gas sensor rating reaches 800 out of 1023 the alarm will activate.
+7. The system will send SMS to the owner containing “The house in on fire” together with the status.
+8. Press the red button to stop the alarm.
+9. You can also terminate the alarm by sending SMS to the system. 
