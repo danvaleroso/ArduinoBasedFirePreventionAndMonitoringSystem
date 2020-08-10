@@ -39,7 +39,6 @@ void gsmWaitResponse(){
 }
 
 void sendback(String message){
-  
     gsmData = Serial.readString();
     if(gsmData.indexOf("+CMT:")>-1){
       int gsmIndex = gsmData.indexOf("+CMT:");
@@ -48,14 +47,12 @@ void sendback(String message){
       // send UPDATE to the sender
       getNum = gsmData.substring(gsmIndex+7,gsmIndex+20);
       sendSMS(getNum,message);
-}
   }
+}
 void setup() {
-  
 //lcd setup
 lcd.init();
 lcd.backlight(); 
-
 lcd.print("Initializing.");
 //temperature setup
 int chk = DHT.read11(DHT11_PIN);
@@ -93,7 +90,6 @@ delay(200);
 }
 
 void loop() {
-  
 mq2Value = analogRead(A0);
 //printing temp and smoke per .1 sec without delay
 if((millis()-sensorReading)>=100){
@@ -111,33 +107,28 @@ if((millis()-sensorReading)>=100){
   }
 //alarm will activate if...
 if(mq2Value>=800||DHT.temperature>=70){
-    
     if((millis()-sendInterval)>=5000){
-      
       sendSMS(phone_no,"FIRE/SMOKE: DETECTED!!\nMQ-2 Sensor: "+String(analogRead(A0))+"\nTemperature: "+String(tempValue)+" degree Celcius"); 
       sendInterval = millis();
       lcd.clear();
       lcd.println("Fire/smoke:     ");
       lcd.setCursor(0,1);
       lcd.println("DETECTED        ");
-      
     }
     //alarm will not stop unless the button is pressed or SMS received
     int val = 0;
     while (val<1){
       digitalWrite(alarm, HIGH);
-      
       //blinking LED without Delay  
       unsigned long currentMillis = millis();
-    
       if (currentMillis - previousMillis >= 100) {
         previousMillis = currentMillis;
         if (ledState == LOW) {
         ledState = HIGH;
-         } else {
+        } else {
          ledState = LOW;
         }
-       }
+      }
        digitalWrite(ledalarm, ledState);
   
       //alarm will stop if the button is HIGH/pressed
@@ -161,13 +152,9 @@ if(mq2Value>=800||DHT.temperature>=70){
           // send notif to the Sender
           getNum = gsmData.substring(gsmIndex+7,gsmIndex+20);
           sendSMS(getNum,"ALARM DEACTIVATED");
-          
         }
-      
+      }
     }
-    
-  }
-  
 }
 // SMS received UPDATE
 if(Serial.available()){
@@ -187,4 +174,3 @@ if(Serial.available()){
     }   
   }
 }
-
